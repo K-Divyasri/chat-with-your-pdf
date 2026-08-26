@@ -1,0 +1,12 @@
+# Core (needed to run everything offline) -------------------------------------
+numpy>=1.26          # the vectors and the maths
+pypdf>=4.0           # reading text out of PDF files
+streamlit>=1.30      # the web UI (app.py)
+
+# Testing ----------------------------------------------------------------------
+pytest>=8.0
+
+# Optional upgrades (uncomment to use; not needed for the offline demo) --------
+# litellm>=1.40              # call a real LLM (Gemini/Groq/Claude/OpenAI) for fluent answers
+# sentence-transformers>=2.7 # real neural embeddings ("meaning", not just words)
+# chromadb>=0.5              # a real vector database (knowledge/10 shows the swap)
