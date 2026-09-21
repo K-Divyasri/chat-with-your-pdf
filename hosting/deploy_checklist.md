@@ -24,7 +24,7 @@ haven't actually verified by running the command — "should work" isn't the sam
 
 ## Tests pass
 
-- [ ] `pytest` run from the repo root is all green — 25 tests, all offline.
+- [ ] `pytest` run from the repo root is all green - 25 tests, all offline.
 - [ ] You ran it in the fresh venv, not just your everyday one, so you know the deps in
       `requirements.txt` are complete.
 

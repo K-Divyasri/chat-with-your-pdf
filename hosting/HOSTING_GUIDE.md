@@ -251,7 +251,7 @@ and redeploys whenever you push. Home page: <https://streamlit.io/cloud>.
    read access to your repos.
 2. Click **Create app** → **Deploy a public app from GitHub**.
 3. **Repository:** `YOURNAME/chat-with-your-pdf`. **Branch:** `main`.
-4. **Main file path:** this is the key field — point it at **`app.py`**
+4. **Main file path:** this is the key field - point it at **`app.py`**
    (it sits at the repo root).
 5. Click **Deploy**. It reads `requirements.txt` (it sits right next to `app.py` at the
    repo root, where Streamlit Cloud looks), installs the deps, and launches.
