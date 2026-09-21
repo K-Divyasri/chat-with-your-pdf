@@ -11,7 +11,7 @@
 #
 # WHERE THIS FILE GOES: copy it to ".github/workflows/ci.yml" at the ROOT of your
 # repo (the repo root is the whole 08-chat-with-your-pdf/ folder, the one that
-# contains build_from_scratch/). GitHub only runs workflow files that live under
+# contains app.py, pdf_chat/, and hosting/). GitHub only runs workflow files that live under
 # .github/workflows/.
 
 # The name shown in the repo's "Actions" tab.
@@ -42,22 +42,19 @@ jobs:
         with:
           python-version: "3.12"
           # Cache pip downloads between runs so installs are faster. Point the cache
-          # at the requirements file, which lives inside build_from_scratch/.
+          # at the requirements file, which lives at the repo root.
           cache: pip
-          cache-dependency-path: build_from_scratch/requirements.txt
+          cache-dependency-path: requirements.txt
 
-      # Step 3: install the project's dependencies. The requirements file is one
-      # level down in build_from_scratch/, so give pip the full path from the repo
-      # root. ("--upgrade pip" just makes sure pip itself is current first.)
+      # Step 3: install the project's dependencies. The requirements file is at the
+      # repo root. ("--upgrade pip" just makes sure pip itself is current first.)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r build_from_scratch/requirements.txt
+          pip install -r requirements.txt
 
-      # Step 4: run the tests. pyproject.toml inside build_from_scratch/ sets
-      # testpaths = ["tests"], so a bare "pytest" run from that folder finds and runs
-      # the whole suite. "working-directory" moves us into build_from_scratch first.
-      # The job passes only if every test passes.
+      # Step 4: run the tests. pyproject.toml at the repo root sets
+      # testpaths = ["tests"], so a bare "pytest" run from the repo root finds and runs
+      # the whole suite. The job passes only if every test passes.
       - name: Run tests
-        working-directory: build_from_scratch
         run: pytest

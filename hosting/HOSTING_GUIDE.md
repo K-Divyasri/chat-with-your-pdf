@@ -28,25 +28,23 @@ Your project folder looks like this:
 
 ```
 08-chat-with-your-pdf/          <- this whole folder becomes your GitHub repo
-├── build_from_scratch/         <- the real app lives here
-│   ├── app.py                  <- the Streamlit web app
-│   ├── pdf_chat/               <- the package it imports (loading, chunking, ...)
-│   ├── requirements.txt
-│   ├── tests/                  <- 25 offline tests
-│   └── generate_data.py
+├── app.py                      <- the Streamlit web app
+├── pdf_chat/                   <- the package it imports (loading, chunking, ...)
+├── requirements.txt
+├── tests/                      <- 25 offline tests
+├── generate_data.py
 ├── hosting/                    <- you are here
 ├── data/                       <- sample PDFs (after you run generate_data.py)
-├── generate_data.py
 └── README.md
 ```
 
 Two things follow from this:
 
 - **GitHub gets the whole `08-chat-with-your-pdf/` folder.** The CI workflow and the
-  root README are written for that. The app *code* the app needs is the
-  `build_from_scratch/` subfolder.
+  root README are written for that. The app *code* the app needs is `app.py` plus the
+  `pdf_chat/` package.
 - **The live app is deployed separately** (Path A or Path B below). Both point at
-  `build_from_scratch/app.py`.
+  `app.py`.
 
 ---
 
@@ -73,7 +71,7 @@ git config --global user.email "mathuransada@gmail.com"
 
 ### Know what must NOT go in the repo
 
-The project already ships a `.gitignore` inside `build_from_scratch/`. Open it and
+The project already ships a `.gitignore` at the repo root. Open it and
 confirm it lists at least these — they're the ones that matter:
 
 ```
@@ -105,8 +103,7 @@ Secrets, the built index, and machine junk stay out.**
 ### Make the repo and push
 
 Run these from the **project root** — the `08-chat-with-your-pdf/` folder, the one with
-`build_from_scratch/` and this `hosting/` folder inside it. (This differs from Project 1,
-where the repo was just the inner folder. Here you publish the whole learning kit.)
+this `hosting/` folder inside it.
 
 ```powershell
 cd ai\08-chat-with-your-pdf
@@ -128,7 +125,7 @@ anywhere. Double-check with:
 git ls-files | Select-String ".env"
 ```
 
-You should see `build_from_scratch/.env.example` and nothing else. If a bare `.env`
+You should see `.env.example` and nothing else. If a bare `.env`
 shows up, you committed a secret — jump to *Committed .env by accident* at the bottom
 and fix it before you push.
 
@@ -204,8 +201,8 @@ natively, so there's almost nothing to configure. Official docs (worth a skim):
 ### A2. Add the app files
 
 A Space is itself a Git repo. It expects the app at its **root** — an `app.py`, a
-`requirements.txt`, and any code they import, all at the top level. Our files live inside
-`build_from_scratch/`, so you upload *their contents* to the Space root. The three things
+`requirements.txt`, and any code they import, all at the top level. Our files already sit
+at the top level of the repo, so you upload them to the Space root as they are. The three things
 the Space needs:
 
 - `app.py`               — the Streamlit app
@@ -214,7 +211,7 @@ the Space needs:
 
 The easiest way for a beginner is the web uploader: on your Space page, the **Files**
 tab → **Add file** → **Upload files**. Drag in `app.py`, `requirements.txt`, and the
-entire `pdf_chat` folder (from your `build_from_scratch/`). Commit.
+entire `pdf_chat` folder. Commit.
 
 > You do **not** need to upload `tests/`, `data/`, `.index/`, `.venv/`, or
 > `generate_data.py` — the app doesn't use them. The visitor supplies their own PDFs by
@@ -254,15 +251,14 @@ and redeploys whenever you push. Home page: <https://streamlit.io/cloud>.
    read access to your repos.
 2. Click **Create app** → **Deploy a public app from GitHub**.
 3. **Repository:** `YOURNAME/chat-with-your-pdf`. **Branch:** `main`.
-4. **Main file path:** this is the key field — point it at **`build_from_scratch/app.py`**
-   (not just `app.py`, because the app lives in the subfolder).
-5. Click **Deploy**. It reads `requirements.txt` (it sits right next to `app.py` in
-   `build_from_scratch/`, where Streamlit Cloud looks), installs the deps, and launches.
+4. **Main file path:** this is the key field — point it at **`app.py`**
+   (it sits at the repo root).
+5. Click **Deploy**. It reads `requirements.txt` (it sits right next to `app.py` at the
+   repo root, where Streamlit Cloud looks), installs the deps, and launches.
    A minute later you have a public `*.streamlit.app` URL.
 
-If the build ever complains it can't find dependencies, add a one-line `requirements.txt`
-at the **repo root** containing `-r build_from_scratch/requirements.txt` — that just tells
-pip to read the real list. Usually you won't need to.
+If the build ever complains it can't find dependencies, check that `requirements.txt`
+is at the **repo root**, next to `app.py`. Usually you won't need to.
 
 ### Secrets on Streamlit Cloud
 
@@ -309,7 +305,7 @@ either locally or on the hosted app:
 
 1. Go to <https://aistudio.google.com/app/apikey> and sign in with a Google account.
 2. Click **Create API key**. Copy it.
-3. Locally: copy `build_from_scratch\.env.example` to `.env`, paste the key after
+3. Locally: copy `.env.example` to `.env`, paste the key after
    `GEMINI_API_KEY=`. On a host: put it in the Space Secret / Streamlit Secrets box as
    above — **not** in the repo.
 

@@ -2,7 +2,7 @@
 
 This is the project's "definition of done." Walk it top to bottom. Don't tick a box you
 haven't actually verified by running the command — "should work" isn't the same as
-"works." Commands assume you're inside `build_from_scratch/` unless noted.
+"works." Commands assume you're at the repo root unless noted.
 
 ## Runs locally
 
@@ -24,7 +24,7 @@ haven't actually verified by running the command — "should work" isn't the sam
 
 ## Tests pass
 
-- [ ] `pytest` run from inside `build_from_scratch/` is all green — 25 tests, all offline.
+- [ ] `pytest` run from the repo root is all green — 25 tests, all offline.
 - [ ] You ran it in the fresh venv, not just your everyday one, so you know the deps in
       `requirements.txt` are complete.
 
@@ -51,7 +51,7 @@ haven't actually verified by running the command — "should work" isn't the sam
       `chat-with-your-pdf`, public.
 - [ ] `git init` → `git add .` → `git commit` → `git branch -M main` →
       `git remote add origin ...` → `git push -u origin main` all done, from the
-      **project root** (the folder containing `build_from_scratch/`).
+      **project root** (the folder containing `hosting/`).
 - [ ] `.github/workflows/ci.yml` is committed and pushed.
 - [ ] The Actions tab shows a completed run with a green checkmark (it's keyless — all
       tests are offline). If it was red, you read the log and fixed the cause (usually a
@@ -60,7 +60,7 @@ haven't actually verified by running the command — "should work" isn't the sam
 ## Live app is up
 
 - [ ] Deployed via Path A (Hugging Face Spaces, Streamlit SDK) **or** Path B (Streamlit
-      Community Cloud, main file `build_from_scratch/app.py`).
+      Community Cloud, main file `app.py`).
 - [ ] For Path A: `app.py`, the whole `pdf_chat/` folder, and `requirements.txt` are at
       the Space root; the build log is clean.
 - [ ] Open the live URL, upload a sample PDF, ask a question — it answers offline with a
